@@ -99,4 +99,22 @@ print("Hello from Cursor!")
 ### 📱 Interface web:
 Acesse: http://localhost:3001
 
-📚 **Guia completo**: [CURSOR_SETUP.md](CURSOR_SETUP.md)
+## 🔧 Se Ctrl+Shift+R não funciona
+
+### 🔍 Diagnóstico rápido:
+```bash
+# Linux/Mac
+./debug_cursor.sh
+
+# Windows  
+debug_cursor.bat
+```
+
+### �️ Soluções alternativas:
+1. **Command Palette**: `Ctrl+Shift+P` → "Codespace: Execute Remote Command"
+2. **Terminal**: `codespace run "seu_codigo_python"`
+3. **Interface web**: http://localhost:3001
+4. **Reload Window**: `Ctrl+Shift+P` → "Developer: Reload Window"
+
+�📚 **Guia completo**: [CURSOR_SETUP.md](CURSOR_SETUP.md)  
+🔧 **Troubleshooting**: [TROUBLESHOOTING.md](TROUBLESHOOTING.md)

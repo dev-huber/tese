@@ -14,10 +14,24 @@ class DevelopmentHandler(http.server.SimpleHTTPRequestHandler):
         if self.path == '/execute':
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
-            data = json.loads(post_data.decode('utf-8'))
+            
+            try:
+                data = json.loads(post_data.decode('utf-8'))
+            except json.JSONDecodeError as e:
+                print(f"Erro JSON: {e}")
+                print(f"Dados recebidos: {post_data}")
+                self.send_response(400)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(json.dumps({'error': 'Invalid JSON'}).encode())
+                return
             
             command = data.get('command', '')
             cwd = data.get('cwd', '/workspaces/tese')
+            
+            print(f"🔧 Executando comando: {command}")
+            print(f"📁 Diretório: {cwd}")
             
             try:
                 result = subprocess.run(
@@ -34,18 +48,22 @@ class DevelopmentHandler(http.server.SimpleHTTPRequestHandler):
                     'stderr': result.stderr,
                     'returncode': result.returncode
                 }
+                print(f"✅ Comando executado. Código: {result.returncode}")
+                
             except subprocess.TimeoutExpired:
                 response = {
                     'stdout': '',
                     'stderr': 'Command timed out',
                     'returncode': 124
                 }
+                print("⏰ Comando expirou por timeout")
             except Exception as e:
                 response = {
                     'stdout': '',
                     'stderr': str(e),
                     'returncode': 1
                 }
+                print(f"❌ Erro na execução: {e}")
             
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
@@ -57,10 +75,22 @@ class DevelopmentHandler(http.server.SimpleHTTPRequestHandler):
             # Endpoint para sincronização de arquivos
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
-            data = json.loads(post_data.decode('utf-8'))
+            
+            try:
+                data = json.loads(post_data.decode('utf-8'))
+            except json.JSONDecodeError as e:
+                print(f"Erro JSON no sync: {e}")
+                self.send_response(400)
+                self.send_header('Content-type', 'application/json')
+                self.send_header('Access-Control-Allow-Origin', '*')
+                self.end_headers()
+                self.wfile.write(json.dumps({'error': 'Invalid JSON'}).encode())
+                return
             
             file_path = data.get('path', '')
             file_content = data.get('content', '')
+            
+            print(f"📁 Sincronizando arquivo: {file_path}")
             
             try:
                 full_path = os.path.join('/workspaces/tese', file_path)
@@ -70,8 +100,10 @@ class DevelopmentHandler(http.server.SimpleHTTPRequestHandler):
                     f.write(file_content)
                 
                 response = {'status': 'success', 'message': 'File saved'}
+                print(f"✅ Arquivo salvo: {full_path}")
             except Exception as e:
                 response = {'status': 'error', 'message': str(e)}
+                print(f"❌ Erro ao salvar: {e}")
             
             self.send_response(200)
             self.send_header('Content-type', 'application/json')

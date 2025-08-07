@@ -1,0 +1,70 @@
+{
+  "name": "codespace-tunnel",
+  "displayName": "Codespace Tunnel",
+  "description": "Conecta Cursor ao poder computacional do GitHub Codespace",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onCommand:codespace-tunnel.executeRemote",
+    "onCommand:codespace-tunnel.syncFile"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codespace-tunnel.executeRemote",
+        "title": "Execute no Codespace",
+        "category": "Codespace"
+      },
+      {
+        "command": "codespace-tunnel.syncFile",
+        "title": "Sincronizar arquivo com Codespace",
+        "category": "Codespace"
+      },
+      {
+        "command": "codespace-tunnel.openTerminal",
+        "title": "Abrir Terminal Remoto",
+        "category": "Codespace"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "codespace-tunnel.executeRemote",
+        "key": "ctrl+shift+r",
+        "mac": "cmd+shift+r"
+      },
+      {
+        "command": "codespace-tunnel.syncFile",
+        "key": "ctrl+shift+s",
+        "mac": "cmd+shift+s"
+      }
+    ],
+    "configuration": {
+      "title": "Codespace Tunnel",
+      "properties": {
+        "codespace-tunnel.url": {
+          "type": "string",
+          "default": "https://super-trout-5gpv6wrgxgq53p6r9-8000.app.github.dev",
+          "description": "URL do servidor Codespace"
+        },
+        "codespace-tunnel.autoSync": {
+          "type": "boolean",
+          "default": false,
+          "description": "Sincronização automática ao salvar arquivos"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "typescript": "^4.9.4"
+  }
+}

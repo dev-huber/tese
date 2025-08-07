@@ -2,11 +2,28 @@
 
 Use o **poder computacional do GitHub Codespace** com a **interface do Cursor** localmente.
 
-## 🚀 Instalação (1 comando)
+## 🚀 Instalação Rápida
 
+### 🐧 Unix/Linux
 ```bash
 curl -sSL https://raw.githubusercontent.com/dev-huber/tese/main/install_cursor_tunnel.sh | bash
 ```
+
+### 🪟 Windows
+
+#### PowerShell (Recomendado)
+```powershell
+iex (iwr https://raw.githubusercontent.com/dev-huber/tese/main/install_cursor_tunnel.ps1).Content
+```
+
+#### Batch Script (Simples)
+```cmd
+curl -o install.bat https://raw.githubusercontent.com/dev-huber/tese/main/install_cursor_tunnel.bat && install.bat
+```
+
+📋 **Guia completo Windows**: [WINDOWS_GUIDE.md](WINDOWS_GUIDE.md)
+
+### 🛠️ Instalação Manual
 
 ## ✨ Como usar
 

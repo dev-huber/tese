@@ -60,3 +60,43 @@ curl -X POST https://super-trout-5gpv6wrgxgq53p6r9-8000.app.github.dev/execute \
 - 🔄 **Sincronização automática** de arquivos
 
 **Edite localmente → Execute na nuvem → Resultados instantâneos! 🚀**
+
+## 🎯 Como Habilitar o Túnel no Cursor
+
+### ✅ Verificar instalação:
+```bash
+# Linux/Mac
+./check_installation.sh
+
+# Windows
+check_installation.bat
+```
+
+### 🚀 Iniciar bridge local:
+```bash
+# Linux/Mac
+~/cursor-codespace-bridge/start_bridge.sh
+
+# Windows
+%USERPROFILE%\cursor-codespace-bridge\start_bridge.bat
+```
+
+### ⚙️ Configurar Cursor:
+1. Abrir Cursor IDE
+2. `Ctrl+Shift+P` → "Reload Window" 
+3. Usar `Ctrl+Shift+R` para executar comandos remotos
+4. Usar `Ctrl+Shift+S` para sincronizar arquivos
+
+### 🧪 Testar funcionamento:
+```bash
+# Via terminal
+codespace run "python -c 'print(\"Hello from Codespace!\")'"
+
+# Via Cursor (Ctrl+Shift+R)
+print("Hello from Cursor!")
+```
+
+### 📱 Interface web:
+Acesse: http://localhost:3001
+
+📚 **Guia completo**: [CURSOR_SETUP.md](CURSOR_SETUP.md)
